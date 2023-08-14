@@ -32,6 +32,14 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required|unique:posts|max:255',
+            'excerpt' => 'required',
+            'body' => 'required',
+            'min_to_read' => 'min:0|max:60',
+            'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048']
+        ]);
+
         Post::create([
             'title' => $request->title,
             'excerpt' => $request->excerpt,

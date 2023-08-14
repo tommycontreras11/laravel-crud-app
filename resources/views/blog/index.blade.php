@@ -61,11 +61,17 @@
                 <form action="{{ route('blog.destroy', $post->id) }}" method="post">
                     @csrf
                     @method('DELETE')
-                    <input type="submit" class="text-red-500" value="Delete" />
+                    <button class="pt-3 text-red-500 pr-3" type="submit">
+                        Delete
+                    </button>
                 </form>
             </div>
         </div>
     </div>
     @endforeach
+
+    <div class="mx-auto pb-10 w-4/5">
+        {{ $posts->links() }}
+    </div>
 </body>
 </html>

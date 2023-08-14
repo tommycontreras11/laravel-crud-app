@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class PostsController extends Controller
 {
@@ -98,7 +97,8 @@ class PostsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Post::destroy($id);
+        return redirect(route('blog.index'))->with('message', 'Post has been deleted.');
     }
 
     private function storeImage($request) 

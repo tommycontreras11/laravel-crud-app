@@ -24,7 +24,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        return view('blog.create');
     }
 
     /**
@@ -32,7 +32,17 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Post::create([
+            'title' => $request->title,
+            'excerpt' => $request->excerpt,
+            'body' => $request->body,
+            'min_to_read' => $request->min_to_read,
+            'is_published' => $request->is_published === 'on',
+            'image_path' => $this->storeImage($request)
+        ]);
+
+
+        return redirect(route('blog.index'));
     }
 
     /**
@@ -67,5 +77,13 @@ class PostsController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    private function storeImage($request) 
+    {
+        $newImageName = uniqid() . '-' . $request->title . '.' . 
+        $request->image->extension();
+        
+        return $request->image->move(public_path('images'), $newImageName);
     }
 }

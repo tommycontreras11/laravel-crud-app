@@ -18,17 +18,12 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('blog')->group(function () {
     // GET
     Route::get('/', [PostsController::class, 'index'])->name('blog.index');
-    Route::get('/{id}', [PostsController::class, 'show'])->name('blog.show');
-
-    // POST
     Route::get('/create', [PostsController::class, 'create'])->name('blog.create');
-    Route::post('/', [PostsController::class, 'store'])->name('blog.store');
-
-    // PUT OR PATCH 
+    Route::get('/{id}', [PostsController::class, 'show'])->name('blog.show');
     Route::get('edit/{id}', [PostsController::class, 'edit'])->name('blog.edit');
-    Route::patch('/{id}', [PostsController::class, 'update'])->name('blog.update');
 
-    // DELETE
+    Route::post('/', [PostsController::class, 'store'])->name('blog.store');
+    Route::patch('/{id}', [PostsController::class, 'update'])->name('blog.update');
     Route::delete('/{id}', [PostsController::class, 'destroy'])->name('blog.destroy');
 });
 

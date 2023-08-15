@@ -32,9 +32,16 @@
             {{ $post->title }}
         </h4>
 
+        <p class="pt-4 italic">
+            Categories:
+            @foreach ($post->categories as $category)
+                {{ $category->title }}
+            @endforeach
+        </p>
+
         <div class="block lg:flex flex-row">
             <div class="basis-9/12 text-center sm:block sm:text-left">
-                <span class="text-left sm:text-center sm:inline block text-gray-900 pb-10 pt-0 sm:pt-10 pl-0 sm:pl-4 -mt-8 sm:-mt-0">
+                <span class="text-left sm:text-center sm:inline block text-gray-900 pb-10 pt-0 sm:pt-10 pl-0 -mt-8 sm:-mt-0">
                     Made by:
                     <a
                         href=""

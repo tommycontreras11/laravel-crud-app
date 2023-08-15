@@ -10,11 +10,16 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'body', 'excerpt', 'min_to_read', 'is_published', 'image_path'
+        'user_id', 'title', 'body', 'excerpt', 'min_to_read', 'is_published', 'image_path'
     ];
 
     public function user() 
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function meta()
+    {
+        return $this->hasOne(PostMeta::class);
     }
 }

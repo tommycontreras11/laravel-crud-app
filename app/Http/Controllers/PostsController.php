@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PostFormRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
@@ -34,13 +35,21 @@ class PostsController extends Controller
     {
         $request->validated();
 
-        Post::create([
+        $post = Post::create([
+            'user_id' => Auth::id(),
             'title' => $request->title,
             'excerpt' => $request->excerpt,
             'body' => $request->body,
             'min_to_read' => $request->min_to_read,
             'is_published' => $request->is_published === 'on',
             'image_path' => $this->storeImage($request)
+        ]);
+
+        $post->meta()->create([
+            'post_id' => $post->id,
+            'meta_description' => $request->meta_description,
+            'meta_keywords' => $request->meta_keywords,
+            'meta_robots' => $request->meta_robots
         ]);
 
         return redirect(route('blog.index'));
